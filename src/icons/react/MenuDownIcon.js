@@ -1,0 +1,12 @@
+
+import * as React from 'react';
+
+const MenuDownIcon = React.forwardRef(({ title, titleId, ...props }, ref) => (
+  <svg ref={ref} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M10.5832 16.2837C11.2872 17.2377 12.7132 17.2377 13.4172 16.2837L17.0442 11.3637C17.7992 10.3407 16.9882 8.96973 15.6272 8.96973L8.37224 8.96973C7.01324 8.96973 6.20124 10.3407 6.95524 11.3637L10.5832 16.2837Z" fill="black" fill-opacity="0.56"/>
+</svg>
+
+));
+
+export default MenuDownIcon;
+    

@@ -1,0 +1,12 @@
+
+import * as React from 'react';
+
+const LightningBoltIcon = React.forwardRef(({ title, titleId, ...props }, ref) => (
+  <svg ref={ref} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M13.374 2.96484C13.183 2.96484 13.007 3.06684 12.911 3.23184L7.40301 12.7718C7.08601 13.3208 7.48301 14.0078 8.11801 14.0078H10.971L10.075 20.3868C10.027 20.7298 10.293 21.0358 10.639 21.0358C10.843 21.0358 11.03 20.9278 11.133 20.7518L16.63 11.2298C16.947 10.6798 16.551 9.99284 15.916 9.99284H12.989L13.902 3.57384C13.948 3.25284 13.698 2.96484 13.374 2.96484Z" fill="black" fill-opacity="0.56"/>
+</svg>
+
+));
+
+export default LightningBoltIcon;
+    

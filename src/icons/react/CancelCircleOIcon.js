@@ -1,0 +1,12 @@
+
+import * as React from 'react';
+
+const CancelCircleOIcon = React.forwardRef(({ title, titleId, ...props }, ref) => (
+  <svg ref={ref} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.6006 16.186L7.81357 6.399C8.98157 5.524 10.4276 5 11.9996 5C15.8666 5 18.9996 8.134 18.9996 12C18.9996 13.572 18.4756 15.018 17.6006 16.186ZM4.99957 12C4.99957 10.428 5.52457 8.982 6.39957 7.814L16.1866 17.601C15.0186 18.476 13.5726 19 11.9996 19C8.13357 19 4.99957 15.866 4.99957 12ZM11.9996 3C7.03757 3 2.99957 7.037 2.99957 12C2.99957 16.962 7.03757 21 11.9996 21C16.9626 21 20.9996 16.962 20.9996 12C20.9996 7.037 16.9626 3 11.9996 3Z" fill="black" fill-opacity="0.56"/>
+</svg>
+
+));
+
+export default CancelCircleOIcon;
+    

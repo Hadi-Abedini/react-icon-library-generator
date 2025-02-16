@@ -1,0 +1,12 @@
+
+import * as React from 'react';
+
+const StarIcon = React.forwardRef(({ title, titleId, ...props }, ref) => (
+  <svg ref={ref} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M14.8115 8.62952L19.6395 9.04352C20.5205 9.11852 20.8775 10.2165 20.2085 10.7955L16.5405 13.9695L17.6465 18.6925C17.8475 19.5535 16.9145 20.2325 16.1565 19.7755L11.9985 17.2695L7.84847 19.7755C7.09047 20.2325 6.15647 19.5535 6.35747 18.6925L7.45847 13.9695L3.79047 10.7955C3.12247 10.2165 3.47947 9.11852 4.36047 9.04352L9.18847 8.62952L11.0795 4.17052C11.4235 3.35852 12.5765 3.35852 12.9205 4.17052L14.8115 8.62952Z" fill="black" fill-opacity="0.56"/>
+</svg>
+
+));
+
+export default StarIcon;
+    

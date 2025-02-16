@@ -1,0 +1,12 @@
+
+import * as React from 'react';
+
+const CheckCircleIcon = React.forwardRef(({ title, titleId, ...props }, ref) => (
+  <svg ref={ref} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M16.4658 10.207L11.4658 15.207C11.2708 15.402 11.0148 15.5 10.7588 15.5C10.5028 15.5 10.2468 15.402 10.0518 15.207L7.53382 12.69C7.14382 12.3 7.14382 11.666 7.53382 11.276C7.92482 10.885 8.55782 10.885 8.94782 11.276L10.7588 13.086L15.0518 8.793C15.4428 8.402 16.0748 8.402 16.4658 8.793C16.8568 9.184 16.8568 9.816 16.4658 10.207ZM11.9998 2C6.48682 2 1.99982 6.486 1.99982 12C1.99982 17.514 6.48682 22 11.9998 22C17.5138 22 21.9998 17.514 21.9998 12C21.9998 6.486 17.5138 2 11.9998 2Z" fill="black" fill-opacity="0.56"/>
+</svg>
+
+));
+
+export default CheckCircleIcon;
+    

@@ -1,0 +1,13 @@
+
+import * as React from 'react';
+
+const LampIcon = React.forwardRef(({ title, titleId, ...props }, ref) => (
+  <svg ref={ref} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16 21H13V18.5C13 18.22 12.78 18 12.5 18H11.5C11.22 18 11 18.22 11 18.5V21H8.00003C7.45003 21 7.00003 21.45 7.00003 22C7.00003 22.55 7.45003 23 8.00003 23H16C16.55 23 17 22.55 17 22C17 21.45 16.55 21 16 21Z" fill="black" fill-opacity="0.56"/>
+<path d="M19.96 15.74L16.46 2.74C16.35 2.3 15.95 2 15.5 2H8.50002C8.05002 2 7.65002 2.3 7.54002 2.74L4.04002 15.74C3.96002 16.04 4.02002 16.36 4.21002 16.61C4.40002 16.86 4.69002 17 5.00002 17H19C19.31 17 19.6 16.86 19.79 16.61C19.98 16.36 20.04 16.04 19.96 15.74Z" fill="black" fill-opacity="0.56"/>
+</svg>
+
+));
+
+export default LampIcon;
+    

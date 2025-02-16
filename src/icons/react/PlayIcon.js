@@ -1,0 +1,12 @@
+
+import * as React from 'react';
+
+const PlayIcon = React.forwardRef(({ title, titleId, ...props }, ref) => (
+  <svg ref={ref} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M18.924 9.47682L10.623 4.13982C9.697 3.54482 8.526 3.50482 7.563 4.03082C6.584 4.56482 6 5.54882 6 6.66382V17.3368C6 18.4348 6.599 19.4438 7.563 19.9708C8.02 20.2198 8.513 20.3438 9.004 20.3438C9.565 20.3438 10.123 20.1818 10.623 19.8608L18.924 14.5238C19.786 13.9688 20.302 13.0258 20.302 11.9998C20.301 10.9748 19.786 10.0318 18.924 9.47682Z" fill="black" fill-opacity="0.56"/>
+</svg>
+
+));
+
+export default PlayIcon;
+    

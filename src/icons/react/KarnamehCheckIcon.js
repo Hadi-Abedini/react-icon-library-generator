@@ -1,0 +1,12 @@
+
+import * as React from 'react';
+
+const KarnamehCheckIcon = React.forwardRef(({ title, titleId, ...props }, ref) => (
+  <svg ref={ref} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M10.082 8.99076L6.07599 5.70776V9.22176L10.203 12.6028L18.612 5.71076V1.99976L10.082 8.99076Z" fill="black" fill-opacity="0.56"/>
+</svg>
+
+));
+
+export default KarnamehCheckIcon;
+    

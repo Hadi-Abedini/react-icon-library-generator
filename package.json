@@ -1,0 +1,21 @@
+{
+  "name": "hadi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  
+  "scripts": {
+    "generate:icons": "node scripts/generate-icons.js",
+    "start": "npm run generate:icons && react-scripts start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@svgr/cli": "^8.1.0",
+    "@svgr/core": "^8.1.0",
+    "fs-extra": "^11.3.0",
+    "path": "^0.12.7"
+  }
+}
