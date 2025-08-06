@@ -67,10 +67,14 @@ async function generateIcons() {
               name: "preset-default",
               params: {
                 overrides: {
-                  removeAttrs: {
-                    attrs: "(fill|stroke)",
-                  },
+                  removeViewBox: false,
                 },
+              },
+            },
+            {
+              name: "removeAttrs",
+              params: {
+                attrs: "(fill|stroke)",
               },
             },
           ],
