@@ -49,7 +49,7 @@ cd react-icon-library-generator
 npm install
 ```
 
-# یا
+##### یا
 
 ```bash
 yarn install
