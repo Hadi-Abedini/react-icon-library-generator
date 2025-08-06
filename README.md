@@ -1,4 +1,3 @@
-
 # 🎨 تولیدکننده آیکون برای React (React Icon Generator)
 
 این پروژه شامل یک اسکریپت قدرتمند برای تبدیل خودکار فایل‌های SVG به کامپوننت‌های بهینه‌سازی شده React (با پشتیبانی از TypeScript) است. با استفاده از این ابزار، می‌توانید به راحتی مجموعه آیکون‌های اختصاصی پروژه خود را مدیریت کرده و با بالاترین کیفیت و بهترین تجربه توسعه (DX) از آن‌ها استفاده کنید.
@@ -48,7 +47,11 @@ cd react-icon-library-generator
 
 ```bash
 npm install
+```
+
 # یا
+
+```bash
 yarn install
 ```
 
@@ -80,8 +83,8 @@ npm start
 به لطف فایل `index.ts`، می‌توانید آیکون‌ها را به صورت مستقیم و با نام کامپوننت ایمپورت کنید.
 
 ```tsx
-import React from 'react';
-import { UserProfileIcon, ArrowLeftIcon } from '../path/to/icons/react';
+import React from "react";
+import { UserProfileIcon, ArrowLeftIcon } from "../path/to/icons/react";
 
 const Header = () => (
   <div>
@@ -102,8 +105,8 @@ const Header = () => (
 
 ```tsx
 // src/components/Icon.tsx
-import React from 'react';
-import { iconMap, IconName } from '../path/to/icons/react/iconMap';
+import React from "react";
+import { iconMap, IconName } from "../path/to/icons/react/iconMap";
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {
   name: IconName;
@@ -119,8 +122,8 @@ export const Icon: React.FC<IconProps> = ({ name, ...props }) => {
 سپس از آن استفاده کنید:
 
 ```tsx
-import React from 'react';
-import { Icon } from '../components/Icon';
+import React from "react";
+import { Icon } from "../components/Icon";
 
 const UserMenu = ({ iconName }) => (
   <button>
