@@ -101,7 +101,7 @@ const Header = () => (
 ابتدا کامپوننت `UniIcon` را بسازید:
 
 ```tsx
-// src/components/UniIcon.tsx
+// src/components/Icon.tsx
 import React from 'react';
 import { iconMap, IconName } from '../path/to/icons/react/iconMap';
 
