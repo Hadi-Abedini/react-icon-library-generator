@@ -6,7 +6,7 @@
   
   "scripts": {
     "generate:icons": "node scripts/generate-icons.js",
-    "start": "npm run generate:icons && react-scripts start"
+    "start": "npm run generate:icons"
   },
   "keywords": [],
   "author": "",
