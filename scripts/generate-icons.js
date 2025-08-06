@@ -58,6 +58,23 @@ async function generateIcons() {
         jsxRuntime: "automatic",
         template: componentTemplate,
         plugins: ["@svgr/plugin-svgo", "@svgr/plugin-jsx"],
+        svgProps: {
+          fill: "currentColor",
+        },
+        svgoConfig: {
+          plugins: [
+            {
+              name: "preset-default",
+              params: {
+                overrides: {
+                  removeAttrs: {
+                    attrs: "(fill|stroke)",
+                  },
+                },
+              },
+            },
+          ],
+        },
       },
       { componentName }
     );
