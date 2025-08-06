@@ -1,9 +1,4 @@
 # Ignore contents of icon directories, but keep the directories themselves
 !src/icons/.gitkeep
 !src/.gitkeep
-
-src/icons/react/*
-!src/icons/react/.gitkeep
-
-src/icons/svg/*
-!src/icons/svg/.gitkeep
+iconPack/*

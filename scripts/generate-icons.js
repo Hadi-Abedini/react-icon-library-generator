@@ -6,9 +6,9 @@ import { transform } from "@svgr/core";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const INPUT_DIR = path.resolve(__dirname, "../src/icons/svg");
-const OUTPUT_DIR = path.resolve(__dirname, "../src/icons/react/icons");
-const INDEX_DIR = path.resolve(__dirname, "../src/icons/react");
+const INPUT_DIR = path.resolve(__dirname, "../src/icons");
+const OUTPUT_DIR = path.resolve(__dirname, "../iconPack/icons");
+const INDEX_DIR = path.resolve(__dirname, "../iconPack");
 
 function toPascalCase(str) {
   return str
