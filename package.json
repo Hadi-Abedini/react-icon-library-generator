@@ -5,8 +5,7 @@
   "main": "index.js",
   
   "scripts": {
-    "generate:icons": "node scripts/generate-icons.js",
-    "start": "npm run generate:icons"
+    "start": "node scripts/generate-icons.js"
   },
   "keywords": [],
   "author": "",
