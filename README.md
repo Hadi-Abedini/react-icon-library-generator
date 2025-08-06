@@ -40,8 +40,8 @@ src
 ### ۱. کلون کردن ریپازیتوری:
 
 ```bash
-git clone <URL-ریپازیتوری-شما>
-cd <نام-پوشه-پروژه>
+git clone https://github.com/Hadi-Abedini/react-icon-library-generator.git
+cd react-icon-library-generator
 ```
 
 ### ۲. نصب وابستگی‌ها:
@@ -105,11 +105,11 @@ const Header = () => (
 import React from 'react';
 import { iconMap, IconName } from '../path/to/icons/react/iconMap';
 
-interface UniIconProps extends React.SVGProps<SVGSVGElement> {
+interface IconProps extends React.SVGProps<SVGSVGElement> {
   name: IconName;
 }
 
-export const UniIcon: React.FC<UniIconProps> = ({ name, ...props }) => {
+export const Icon: React.FC<IconProps> = ({ name, ...props }) => {
   const IconComponent = iconMap[name];
   if (!IconComponent) return null;
   return <IconComponent {...props} />;
@@ -120,11 +120,11 @@ export const UniIcon: React.FC<UniIconProps> = ({ name, ...props }) => {
 
 ```tsx
 import React from 'react';
-import { UniIcon } from '../components/UniIcon';
+import { Icon } from '../components/Icon';
 
 const UserMenu = ({ iconName }) => (
   <button>
-    <UniIcon name={iconName} width={22} />
+    <Icon name={iconName} width={22} />
     <span>{iconName}</span>
   </button>
 );
