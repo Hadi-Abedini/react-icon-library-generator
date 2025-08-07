@@ -38,7 +38,7 @@ async function generateIcons() {
   await fs.ensureDir(INDEX_DIR);
 
   const files = await fs.readdir(INPUT_DIR);
-  const iconMappings = [];
+  const iconData = [];
 
   for (const file of files) {
     if (!file.endsWith(".svg")) continue;
@@ -85,28 +85,25 @@ async function generateIcons() {
 
     const outputFilePath = path.join(OUTPUT_DIR, `${componentName}.tsx`);
     await fs.writeFile(outputFilePath, tsxCode, "utf8");
-
     console.log(`✅ ${componentName}.tsx generated successfully`);
 
-    iconMappings.push({ key: baseName, componentName });
+    iconData.push({ key: baseName, componentName, svgContent });
   }
 
-  const indexContent = iconMappings
+  const indexContent = iconData
     .map(
       ({ componentName }) =>
         `export { default as ${componentName} } from './icons/${componentName}';`
     )
     .join("\n");
-
   const indexFilePath = path.join(INDEX_DIR, "index.ts");
   await fs.writeFile(indexFilePath, indexContent, "utf8");
   console.log(
-    `✅ index.ts generated successfully with ${iconMappings.length} exports`
+    `✅ index.ts generated successfully with ${iconData.length} exports`
   );
 
-  const iconMapImports = iconMappings.map((i) => i.componentName).join(", ");
-  const iconNamesType = iconMappings.map((i) => `'${i.key}'`).join(" | ");
-  const iconMapObject = iconMappings
+  const iconMapImports = iconData.map((i) => i.componentName).join(", ");
+  const iconMapObject = iconData
     .map((i) => `  '${i.key}': ${i.componentName},`)
     .join("\n");
 
@@ -115,16 +112,167 @@ async function generateIcons() {
 import * as React from 'react';
 import { ${iconMapImports} } from './index';
 
-export type IconName = ${iconNamesType};
-
-export const iconMap: Record<IconName, React.FC<React.SVGProps<SVGSVGElement>>> = {
+/**
+ * A constant map of icon names to their React components.
+ * Using "as const" makes sure the keys are treated as literal types.
+ */
+export const iconMap = {
 ${iconMapObject}
-};
+} as const;
+
+/**
+ * A TypeScript type representing the valid names of all icons.
+ * It's derived directly from the keys of the \`iconMap\` object.
+ */
+export type IconName = keyof typeof iconMap;
 `;
 
   const iconMapFilePath = path.join(INDEX_DIR, "iconMap.ts");
   await fs.writeFile(iconMapFilePath, iconMapContent, "utf8");
-  console.log(`✅ iconMap.ts generated successfully`);
+  console.log(`✅ iconMap.ts generated dynamically`);
+
+  const iconCards = iconData
+    .map(
+      ({ key, componentName, svgContent }) => `
+    <div class="card">
+      <div class="icon-preview">${svgContent.replace(
+        "<svg",
+        '<svg fill="currentColor"'
+      )}</div>
+      <p class="icon-name">${key}</p>
+      <div class="buttons">
+        <button onclick="copyToClipboard(this)" data-copy-text='${svgContent.replace(
+          /'/g,
+          "&apos;"
+        )}'>Copy SVG</button>
+        <button onclick="copyToClipboard(this)" data-copy-text="${componentName}">Copy Name</button>
+      </div>
+    </div>`
+    )
+    .join("\n");
+
+  const htmlContent = `
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Icon Preview</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      direction: ltr;
+      background-color: #f8f9fa;
+      color: #212529;
+      margin: 0;
+      padding: 2rem;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { text-align: center; margin-bottom: 1rem; color: #343a40; }
+    .search-container { margin-bottom: 2rem; text-align: center; }
+    #search-input {
+      width: 50%;
+      max-width: 400px;
+      padding: 12px 16px;
+      font-size: 16px;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    #search-input::placeholder { color: #adb5bd; }
+    #search-input:focus {
+      outline: none;
+      border-color: #80bdff;
+      box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.25);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background-color: #ffffff;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    }
+    .icon-preview {
+      flex-grow: 1; display: flex; align-items: center;
+      justify-content: center; margin-bottom: 1rem; color: #495057;
+    }
+    .icon-preview svg { width: 48px; height: 48px; }
+    .icon-name {
+      font-size: 14px; font-weight: 500; word-break: break-all;
+      margin: 0 0 1rem 0; color: #6c757d; font-family: 'Courier New', Courier, monospace;
+    }
+    .buttons { display: flex; flex-direction: column; gap: 0.5rem; }
+    button {
+      background-color: #f1f3f5; color: #343a40; border: 1px solid #ced4da;
+      padding: 8px 12px; border-radius: 6px; cursor: pointer;
+      font-weight: 600; font-size: 12px; transition: background-color 0.2s;
+    }
+    button:hover { background-color: #e9ecef; }
+    button.copied { background-color: #000; color: white; border-color: #000; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Icon Library (${iconData.length} Icons)</h1>
+    <div class="search-container">
+      <input type="text" id="search-input" placeholder="Search" />
+    </div>
+    <div class="grid">
+      ${iconCards}
+    </div>
+  </div>
+  <script>
+    function copyToClipboard(button) {
+      const textToCopy = button.getAttribute('data-copy-text');
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const originalText = button.innerHTML;
+        button.innerHTML = 'Copied!';
+        button.classList.add('copied');
+        setTimeout(() => {
+          button.innerHTML = originalText;
+          button.classList.remove('copied');
+        }, 1500);
+      }).catch(err => {
+        console.error('Failed to copy: ', err);
+      });
+    }
+    const searchInput = document.getElementById('search-input');
+    const cards = document.querySelectorAll('.card');
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase().trim();
+      cards.forEach(card => {
+        const iconName = card.querySelector('.icon-name').textContent.toLowerCase();
+        if (iconName.includes(searchTerm)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+`;
+  const previewFilePath = path.join(INDEX_DIR, "preview.html");
+  await fs.writeFile(previewFilePath, htmlContent, "utf8");
+  console.log(
+    `✅ preview.html with search functionality generated successfully.`
+  );
 }
 
 generateIcons().catch(console.error);
