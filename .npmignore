@@ -9,10 +9,6 @@ node_modules
 iconPack/
 .cache/
 
-# Scripts and utilities (internal, not needed for users)
-scripts/
-utils/
-
 # IDE / editor files
 .vscode/
 .DS_Store
