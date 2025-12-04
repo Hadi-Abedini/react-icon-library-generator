@@ -1,0 +1,23 @@
+# Node modules
+node_modules
+
+# Local environment files
+*.env
+*.log
+
+# Build output / caches
+iconPack/
+.cache/
+
+# Scripts and utilities (internal, not needed for users)
+scripts/
+utils/
+
+# IDE / editor files
+.vscode/
+.DS_Store
+*.swp
+*.swo
+
+# OS generated files
+Thumbs.db

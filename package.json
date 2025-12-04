@@ -1,20 +1,43 @@
 {
-  "name": "hadi",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  
-  "scripts": {
-    "start": "node scripts/generate-icons.js"
+  "name": "react-icon-generator-cli",
+  "description": "A fully typed, tree-shakable React icon library built with react-icon-generator-cli.",
+  "private": false,
+  "version": "1.0.4",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hadi-Abedini/react-icon-library-generator.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "type": "module",
+  "bin": {
+    "react-icon-gen": "./bin/cli.ts"
+  },
+  "keywords": [
+    "react",
+    "typescript",
+    "icon-generator",
+    "svg-to-react",
+    "cli",
+    "tree-shaking",
+    "asset-to-component"
+  ],
+  "scripts": {
+    "build": "echo 'No build needed, Bun/TS runs directly'",
+    "prepare": "bun run build",
+    "generate:components": "bun scripts/generate-components.ts",
+    "generate:index": "bun scripts/generate-index.ts",
+    "generate:iconmap": "bun scripts/generate-iconmap.ts",
+    "generate:preview": "bun scripts/generate-preview.ts",
+    "generate": "bun run generate:components && bun run generate:index && bun run generate:iconmap && bun run generate:preview"
+  },
   "devDependencies": {
-    "@svgr/cli": "^8.1.0",
     "@svgr/core": "^8.1.0",
-    "fs-extra": "^11.3.0",
-    "path": "^0.12.7"
+    "@types/bun": "latest",
+    "fs-extra": "^11.3.2",
+    "glob": "^13.0.0",
+    "prettier": "^3.7.4"
+  },
+  "peerDependencies": {
+    "typescript": "^5.9.3"
   }
 }

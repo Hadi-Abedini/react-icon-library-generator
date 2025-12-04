@@ -1,141 +1,121 @@
-# 🎨 تولیدکننده آیکون برای React (React Icon Generator)
+# React Icon Generator CLI
 
-این پروژه شامل یک اسکریپت قدرتمند برای تبدیل خودکار فایل‌های SVG به کامپوننت‌های بهینه‌سازی شده React (با پشتیبانی از TypeScript) است. با استفاده از این ابزار، می‌توانید به راحتی مجموعه آیکون‌های اختصاصی پروژه خود را مدیریت کرده و با بالاترین کیفیت و بهترین تجربه توسعه (DX) از آن‌ها استفاده کنید.
+React Icon Generator CLI is a lightweight, high-performance tool that automates the conversion of SVG and PNG assets into fully typed, tree-shakable React components.
 
----
+Stop manually converting SVGs. Point this CLI to your assets folder, and get a production-ready icon library in seconds.
 
-## ✨ ویژگی‌ها
+## 🚀 Key Features
 
-- **تولید کامپوننت‌های TSX**: هر آیکون به یک کامپوننت React با تایپ‌های کامل TypeScript تبدیل می‌شود.
-- **پشتیبانی از `forwardRef`**: تمام کامپوننت‌ها از `forwardRef` پشتیبانی می‌کنند تا بتوانید به راحتی به عنصر `<svg>` دسترسی داشته باشید.
-- **ایمپورت آسان**: یک فایل `index.ts` به صورت خودکار ساخته می‌شود که به شما اجازه می‌دهد تمام آیکون‌ها را از یک مسیر واحد ایمپورت کنید.
-- **آیکون داینامیک**: یک فایل `iconMap.ts` برای شما ساخته می‌شود که امکان رندر کردن آیکون‌ها بر اساس نام (string) را فراهم می‌کند.
-- **بهینه‌سازی SVG**: آیکون‌ها با استفاده از SVGO بهینه‌سازی می‌شوند تا حجم کمتری داشته باشند.
-- **کراس-پلتفرم**: اسکریپت بر روی سیستم‌عامل‌های Windows، macOS و Linux بدون مشکل اجرا می‌شود.
+- ⚡️ **Instant Conversion:** Transforms .svg and .png files into optimized React components.
+- 📦 **Smart Caching:** Only rebuilds changed files to keep your build process fast.
+- 🎨 **Visual Preview:** Generates a `preview.html` to easily browse your icon set.
+- 📘 **TypeScript Support:** Includes built-in type definitions (`.d.ts`) and fully typed props.
+- 🧩 **Zero Configuration:** Works out-of-the-box with sensible defaults (Prettier included).
+- 🗂 **Structured Output:** Creates an `iconPack` with an index barrel file and a dynamic map.
 
----
+## 📦 Installation
 
-## 📂 ساختار پروژه
-
-برای استفاده از این اسکریپت، فایل‌های خود را در مسیرهای زیر قرار دهید:
-
-```
-iconPack/         # ⬅️ کامپوننت‌های تولید شده در اینجا قرار می‌گیرند
-    │   ├── icons/
-    │   ├── index.ts
-    │   └── iconMap.ts
-src
-└── icons         # ⬅️ فایل‌های .svg ورودی خود را اینجا قرار دهید      
-```
-
-- `src/icons/`: این پوشه محل قرارگیری فایل‌های منبع `.svg` شماست. هر فایلی که در این پوشه قرار دهید، توسط اسکریپت پردازش خواهد شد.
-- `iconPack/`: این پوشه به صورت خودکار توسط اسکریپت ساخته و مدیریت می‌شود. **از تغییر دستی فایل‌های این پوشه خودداری کنید.**
-
----
-
-## 🚀 نصب و راه‌اندازی
-
-### ۱. کلون کردن ریپازیتوری:
-
+### Method 1: Run via npx (Recommended)
 ```bash
-git clone https://github.com/Hadi-Abedini/react-icon-library-generator.git
-cd react-icon-library-generator
+npx react-icon-generator-cli ./path/to/icons
 ```
 
-### ۲. نصب وابستگی‌ها:
-
+### Method 2: Install as Dev Dependency
 ```bash
-npm install
+# npm
+npm install --save-dev react-icon-generator-cli
+
+# yarn
+yarn add --dev react-icon-generator-cli
+
+# bun
+bun add -d react-icon-generator-cli
 ```
 
-##### یا
-
-```bash
-yarn install
-```
-
----
-
-## 🛠️ نحوه استفاده
-
-### ۱. افزودن آیکون‌ها
-
-فایل‌های `.svg` جدید خود را در پوشه `src/icons` کپی کنید.  
-نام فایل‌ها بهتر است به صورت kebab-case باشد (مثلاً: `user-profile.svg` یا `arrow-left.svg`).
-
-### ۲. اجرای اسکریپت
-
-برای تولید کامپوننت‌ها، دستور زیر را در ترمینال اجرا کنید:
-
-```bash
-npm start
-```
-
-پس از اجرای موفقیت‌آمیز، تمام کامپوننت‌های جدید در پوشه `iconPack/` ساخته می‌شوند.
-
----
-
-## 💡 استفاده از آیکون‌ها در پروژه شما
-
-### ✅ روش ۱: ایمپورت مستقیم (پیشنهادی)
-
-به لطف فایل `index.ts`، می‌توانید آیکون‌ها را به صورت مستقیم و با نام کامپوننت ایمپورت کنید.
-
-```tsx
-import React from "react";
-import { UserProfileIcon, ArrowLeftIcon } from "../path/to/icons/react";
-
-const Header = () => (
-  <div>
-    <ArrowLeftIcon width={24} />
-    <span>Profile</span>
-    <UserProfileIcon width={24} />
-  </div>
-);
-```
-
----
-
-### 🔄 روش ۲: استفاده از کامپوننت داینامیک
-
-اگر نیاز دارید آیکون را بر اساس یک نام متغیر (`string`) نمایش دهید، می‌توانید از `iconMap` و یک کامپوننت "یونیورسال" کمک بگیرید.
-
-ابتدا کامپوننت `Icon` را بسازید:
-
-```tsx
-// src/components/Icon.tsx
-import React from "react";
-import { iconMap, IconName } from "../path/to/icons/react/iconMap";
-
-interface IconProps extends React.SVGProps<SVGSVGElement> {
-  name: IconName;
+Add a script to your `package.json`:
+```json
+"scripts": {
+  "generate:icons": "react-icon-generator-cli ./assets/svgs"
 }
+```
 
-export const Icon: React.FC<IconProps> = ({ name, ...props }) => {
-  const IconComponent = iconMap[name];
-  if (!IconComponent) return null;
-  return <IconComponent {...props} />;
+## 🛠 Usage
+
+1. **Organize your assets**
+
+Place your icon files in a directory. Recommended: `kebab-case` or `PascalCase`.
+
+```
+/assets/icons
+├── user-profile.svg
+├── settings.svg
+└── notification-bell.png
+```
+
+2. **Run the command**
+```bash
+npx react-icon-generator-cli ./assets/icons
+```
+
+3. **Generated Structure**
+
+```
+iconPack/
+├── icons/               # ⚛️ Individual React Components
+│   ├── IconUserProfile.tsx
+│   ├── IconSettings.tsx
+│   └── IconNotificationBell.tsx
+├── index.ts             # 📤 Barrel file for named exports
+├── iconMap.ts           # 🗺 Object mapping keys to components
+└── preview.html         # 👁 Open in browser to view icons
+```
+
+## 💻 Implementation in React
+
+**Direct Import (Recommended)**
+```ts
+import { IconUserProfile, IconSettings } from './iconPack';
+
+const NavBar = () => {
+  return (
+    <nav>
+      <IconUserProfile width={24} height={24} className="text-blue-500" />
+      <IconSettings style={{ color: 'red' }} />
+    </nav>
+  );
 };
 ```
 
-سپس از آن استفاده کنید:
+**Dynamic Import (Using IconMap)**
+```ts
+import { iconMap } from './iconPack/iconMap';
 
-```tsx
-import React from "react";
-import { Icon } from "../components/Icon";
+type IconName = keyof typeof iconMap;
 
-const UserMenu = ({ iconName }) => (
-  <button>
-    <Icon name={iconName} width={22} />
-    <span>{iconName}</span>
-  </button>
-);
-
-// <UserMenu iconName="user-profile" />
+const MenuItem = ({ iconName }: { iconName: IconName }) => {
+  const Icon = iconMap[iconName];
+  if (!Icon) return null;
+  return (
+    <div className="menu-item">
+      <Icon width="20" height="20" />
+    </div>
+  );
+};
 ```
 
----
+## ⚙️ Requirements
 
-## 📜 لایسنس
+- Node.js: v18.0.0 or higher (or Bun)  
+- Works best with React + TypeScript projects (Next.js, Vite, CRA).
 
-این پروژه تحت لایسنس **ISC** منتشر شده است.
+## 🤝 Contributing
+
+1. Fork the project  
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)  
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)  
+4. Push to the branch (`git push origin feature/AmazingFeature`)  
+5. Open a Pull Request  
+
+## 📄 License
+
+Distributed under the MIT License. See LICENSE for more information.
