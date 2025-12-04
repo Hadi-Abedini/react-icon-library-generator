@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 /**
  * CLI entrypoint for react-icon-gen
  * Goal: User runs this in a folder containing SVG/PNG files (or provides a folder path).
@@ -41,7 +41,7 @@ if (!fs.existsSync(OUTPUT_DIR)) {
 // Helper function to run scripts
 function runScript(scriptPath: string) {
   return new Promise<void>((resolve, reject) => {
-    const child = spawn("bun", [scriptPath, INPUT_DIR, OUTPUT_DIR], {
+    const child = spawn("node", [scriptPath, INPUT_DIR, OUTPUT_DIR], {
       stdio: "inherit",
       cwd: ROOT,
     });

@@ -2,7 +2,7 @@
   "name": "react-icon-generator-cli",
   "description": "A fully typed, tree-shakable React icon library built with react-icon-generator-cli.",
   "private": false,
-  "version": "1.0.8",
+  "version": "1.1.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -10,30 +10,14 @@
   },
   "type": "module",
   "bin": {
-    "react-icon-gen": "./bin/cli.ts"
+    "react-icon-generator-cli": "./dist/cli.js"
   },
   "files": [
-    "bin/",
-    "scripts/",
-    "utils/"
-  ],
-  "keywords": [
-    "react",
-    "typescript",
-    "icon-generator",
-    "svg-to-react",
-    "cli",
-    "tree-shaking",
-    "asset-to-component"
+    "dist/"
   ],
   "scripts": {
-    "build": "echo 'No build needed, Bun/TS runs directly'",
-    "prepare": "bun run build",
-    "generate:components": "bun scripts/generate-components.ts",
-    "generate:index": "bun scripts/generate-index.ts",
-    "generate:iconmap": "bun scripts/generate-iconmap.ts",
-    "generate:preview": "bun scripts/generate-preview.ts",
-    "generate": "bun run generate:components && bun run generate:index && bun run generate:iconmap && bun run generate:preview"
+    "build": "tsup",
+    "prepare": "npm run build"
   },
   "dependencies": {
     "@svgr/core": "^8.1.0",
@@ -42,9 +26,8 @@
     "prettier": "^3.7.4"
   },
   "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
+    "@types/node": "^24.10.1",
+    "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   }
 }
