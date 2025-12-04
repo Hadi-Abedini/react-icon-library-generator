@@ -105,7 +105,7 @@ const MenuItem = ({ iconName }: { iconName: IconName }) => {
 
 ## ⚙️ Requirements
 
-- Node.js: v18.0.0 or higher (or Bun)  
+- Node.js: v18.0.0 or higher
 - Works best with React + TypeScript projects (Next.js, Vite, CRA).
 
 ## 🤝 Contributing
