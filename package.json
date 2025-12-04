@@ -6,11 +6,6 @@
   "bin": {
     "react-icon-gen": "./bin/cli.ts"
   },
-  "files": [
-    "bin/",
-    "scripts/",
-    "utils/"
-  ],
   "scripts": {
     "build": "echo 'No build needed, Bun/TS runs directly'",
     "prepare": "bun run build",
