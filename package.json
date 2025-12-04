@@ -12,6 +12,11 @@
   "bin": {
     "react-icon-gen": "./bin/cli.ts"
   },
+  "files": [
+    "bin/",
+    "scripts/",
+    "utils/"
+  ],
   "keywords": [
     "react",
     "typescript",
