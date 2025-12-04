@@ -15,7 +15,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Scripts folder inside the npm package
-const SCRIPTS_DIR = path.join(__dirname, "../scripts");
+const SCRIPTS_DIR = path.join(__dirname, "scripts");
 
 // Current working directory of the user
 const ROOT = process.cwd();
@@ -38,17 +38,25 @@ if (!fs.existsSync(OUTPUT_DIR)) {
   console.log("📦 'iconPack' folder already exists, continuing...");
 }
 
-// Helper function to run scripts
-function runScript(scriptPath: string) {
+// Helper function to run JS scripts
+function runScript(scriptName: string) {
   return new Promise<void>((resolve, reject) => {
+    const scriptPath = path.join(SCRIPTS_DIR, scriptName);
+    if (!fs.existsSync(scriptPath)) {
+      return reject(new Error(`Script not found: ${scriptPath}`));
+    }
+
     const child = spawn("node", [scriptPath, INPUT_DIR, OUTPUT_DIR], {
       stdio: "inherit",
       cwd: ROOT,
     });
+
     child.on("close", (code) => {
-      if (code !== 0)
-        reject(new Error(`${scriptPath} failed with exit code ${code}`));
-      else resolve();
+      if (code !== 0) {
+        reject(new Error(`${scriptName} failed with exit code ${code}`));
+      } else {
+        resolve();
+      }
     });
   });
 }
@@ -59,10 +67,10 @@ function runScript(scriptPath: string) {
     console.log("🚀 Starting icon generation...");
     console.log(`📂 Reading SVG/PNG files from: ${INPUT_DIR}`);
 
-    await runScript(path.join(SCRIPTS_DIR, "generate-components.ts"));
-    await runScript(path.join(SCRIPTS_DIR, "generate-index.ts"));
-    await runScript(path.join(SCRIPTS_DIR, "generate-iconmap.ts"));
-    await runScript(path.join(SCRIPTS_DIR, "generate-preview.ts"));
+    await runScript("generate-components.js");
+    await runScript("generate-index.js");
+    await runScript("generate-iconmap.js");
+    await runScript("generate-preview.js");
 
     console.log("🎉 All steps completed successfully!");
     console.log(`📂 Check your generated icons in: ${OUTPUT_DIR}`);
