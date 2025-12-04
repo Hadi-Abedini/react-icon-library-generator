@@ -2,7 +2,7 @@
   "name": "react-icon-generator-cli",
   "description": "A fully typed, tree-shakable React icon library built with react-icon-generator-cli.",
   "private": false,
-  "version": "1.0.6",
+  "version": "1.0.5",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -35,12 +35,14 @@
     "generate:preview": "bun scripts/generate-preview.ts",
     "generate": "bun run generate:components && bun run generate:index && bun run generate:iconmap && bun run generate:preview"
   },
-  "devDependencies": {
+  "dependencies": {
     "@svgr/core": "^8.1.0",
-    "@types/bun": "latest",
     "fs-extra": "^11.3.2",
     "glob": "^13.0.0",
     "prettier": "^3.7.4"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.9.3"
