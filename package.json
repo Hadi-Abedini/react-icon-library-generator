@@ -1,11 +1,20 @@
 {
   "name": "react-icon-generator-cli",
   "private": false,
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "bin": {
     "react-icon-gen": "./bin/cli.ts"
   },
+  "keywords": [
+    "react",
+    "typescript",
+    "icon-generator",
+    "svg-to-react",
+    "cli",
+    "tree-shaking",
+    "asset-to-component"
+  ],
   "scripts": {
     "build": "echo 'No build needed, Bun/TS runs directly'",
     "prepare": "bun run build",
