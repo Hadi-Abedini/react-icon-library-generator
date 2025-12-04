@@ -1,12 +1,22 @@
 {
   "name": "react-icon-library-generator",
-  "module": "index.ts",
-  "type": "module",
   "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "bun run tsx scripts/generate-all.ts",
+    "generate:components": "bun run tsx scripts/generate-components.ts",
+    "generate:index": "bun run tsx scripts/generate-index.ts",
+    "generate:iconmap": "bun run tsx scripts/generate-iconmap.ts",
+    "generate:preview": "bun run tsx scripts/generate-preview.ts"
+  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@svgr/core": "^8.1.0",
+    "@types/bun": "latest",
+    "fs-extra": "^11.3.2",
+    "glob": "^13.0.0",
+    "prettier": "^3.7.4"
   },
   "peerDependencies": {
-    "typescript": "^5"
+    "typescript": "^5.9.3"
   }
 }
