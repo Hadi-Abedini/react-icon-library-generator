@@ -1,13 +1,24 @@
 {
-  "name": "react-icon-library-generator",
-  "private": true,
+  "name": "react-icon-generator-cli",
+  "private": false,
+  "version": "1.0.0",
   "type": "module",
+  "bin": {
+    "react-icon-gen": "./bin/cli.ts"
+  },
+  "files": [
+    "bin/",
+    "scripts/",
+    "utils/"
+  ],
   "scripts": {
-    "generate": "bun run tsx scripts/generate-all.ts",
-    "generate:components": "bun run tsx scripts/generate-components.ts",
-    "generate:index": "bun run tsx scripts/generate-index.ts",
-    "generate:iconmap": "bun run tsx scripts/generate-iconmap.ts",
-    "generate:preview": "bun run tsx scripts/generate-preview.ts"
+    "build": "echo 'No build needed, Bun/TS runs directly'",
+    "prepare": "bun run build",
+    "generate:components": "bun scripts/generate-components.ts",
+    "generate:index": "bun scripts/generate-index.ts",
+    "generate:iconmap": "bun scripts/generate-iconmap.ts",
+    "generate:preview": "bun scripts/generate-preview.ts",
+    "generate": "bun run generate:components && bun run generate:index && bun run generate:iconmap && bun run generate:preview"
   },
   "devDependencies": {
     "@svgr/core": "^8.1.0",

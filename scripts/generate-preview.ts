@@ -1,9 +1,13 @@
 import path from "path";
 import { readSvgFiles, writePrettyFile } from "./utils/svg.ts";
 
-const ROOT = process.cwd();
-const INPUT_DIR = path.join(ROOT, "src", "icons");
-const OUT_FILE = path.join(ROOT, "iconPack", "preview.html");
+const INPUT_DIR = process.argv[2]
+  ? path.resolve(process.argv[2])
+  : path.join(process.cwd(), "src", "icons");
+const OUTPUT_DIR = process.argv[3]
+  ? path.resolve(process.argv[3])
+  : path.join(process.cwd(), "iconPack");
+const OUT_FILE = path.join(OUTPUT_DIR, "preview.html");
 
 async function run() {
   const svgs = await readSvgFiles(INPUT_DIR);
@@ -53,7 +57,6 @@ const input = document.getElementById('search'); input.addEventListener('input',
 </html>
 `;
   await writePrettyFile(OUT_FILE, html, "html");
-  console.log("✅ preview.html generated");
 }
 
 run().catch(console.error);

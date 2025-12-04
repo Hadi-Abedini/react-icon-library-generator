@@ -2,12 +2,15 @@ import path from "path";
 import { glob } from "glob";
 import { writePrettyFile } from "./utils/svg.ts";
 
-const ROOT = process.cwd();
-const ICON_DIR = path.join(ROOT, "iconPack", "icons");
-const OUT_INDEX = path.join(ROOT, "iconPack", "index.ts");
+const OUTPUT_DIR = process.argv[3]
+  ? path.resolve(process.argv[3], "icons")
+  : path.join(process.cwd(), "iconPack", "icons");
+const OUT_INDEX = process.argv[3]
+  ? path.resolve(process.argv[3], "index.ts")
+  : path.join(process.cwd(), "iconPack", "index.ts");
 
 async function run() {
-  const files = glob.sync("*.tsx", { cwd: ICON_DIR });
+  const files = glob.sync("*.tsx", { cwd: OUTPUT_DIR });
   const exports = files
     .map((f) => {
       const name = f.replace(/\.tsx$/, "");
@@ -15,7 +18,6 @@ async function run() {
     })
     .join("\n");
   await writePrettyFile(OUT_INDEX, exports, "babel-ts");
-  console.log(`✅ index.ts generated with ${files.length} exports`);
 }
 
 run().catch(console.error);
