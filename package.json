@@ -1,7 +1,13 @@
 {
   "name": "react-icon-generator-cli",
+  "description": "A fully typed, tree-shakable React icon library built with react-icon-generator-cli.",
   "private": false,
   "version": "1.0.4",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hadi-Abedini/react-icon-library-generator.git"
+  },
   "type": "module",
   "bin": {
     "react-icon-gen": "./bin/cli.ts"
