@@ -1,7 +1,7 @@
 {
   "name": "react-icon-generator-cli",
   "private": false,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "bin": {
     "react-icon-gen": "./bin/cli.ts"
