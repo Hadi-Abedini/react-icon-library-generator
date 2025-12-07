@@ -15,6 +15,22 @@
   "files": [
     "dist/"
   ],
+  "keywords": [
+    "react",
+    "icons",
+    "svg",
+    "cli",
+    "generator",
+    "typescript",
+    "tree-shakable",
+    "react-icons",
+    "icon-library",
+    "svgr",
+    "component",
+    "design-system",
+    "icon-generator",
+    "npm-package"
+  ],
   "scripts": {
     "build": "tsup",
     "prepare": "npm run build"
