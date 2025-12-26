@@ -17,25 +17,17 @@ function toPascalCase(str: string) {
     .join("");
 }
 
-function svgoAddStrokePlugin() {
+function svgoCleanPlugin() {
   return {
-    name: "senet-stroke",
+    name: "clean-icon",
     fn: () => ({
       element: {
         enter: (node: any) => {
-          if (!node || !node.attributes) return;
+          if (!node?.attributes) return;
           delete node.attributes.fill;
           delete node.attributes.stroke;
-          if (
-            ["path", "circle", "rect", "line", "polyline", "polygon"].includes(
-              node.name
-            )
-          ) {
-            node.attributes["stroke-linecap"] =
-              node.attributes["stroke-linecap"] || "round";
-            node.attributes["stroke-linejoin"] =
-              node.attributes["stroke-linejoin"] || "round";
-          }
+          delete node.attributes["fill-opacity"];
+          delete node.attributes["stroke-opacity"];
         },
       },
     }),
@@ -55,50 +47,86 @@ async function run() {
     try {
       prevHash = await fs.readFile(cacheFile, "utf8");
     } catch {}
-    if (prevHash === hash) {
-      continue;
-    }
+    if (prevHash === hash) continue;
 
     const componentName = `${toPascalCase(svg.base)}Icon`;
 
-    const tsx = await transform(
+    const jsxCode = await transform(
       svg.content,
       {
-        typescript: true,
-        icon: true,
+        typescript: false,
         jsxRuntime: "automatic",
         svgo: true,
-        svgProps: { fill: "currentColor", width: "{24}", height: "{24}" },
         svgoConfig: {
           plugins: [
             {
               name: "preset-default",
-              params: { overrides: { removeViewBox: false } },
+              params: {
+                overrides: {
+                  removeViewBox: false,
+                  convertColors: false,
+                },
+              },
             },
-            { name: "removeAttrs", params: { attrs: "(fill|stroke)" } },
-            svgoAddStrokePlugin(),
+            svgoCleanPlugin(),
           ],
         },
-        template: (variables: any, { tpl }: any) => tpl`
-import * as React from "react";
-
-interface Props extends React.SVGProps<SVGSVGElement> {
-  title?: string;
-  variant?: "filled" | "outlined";
-}
-
-const ${variables.componentName} = ({ title, variant = "outlined", ...props }: Props) => {
-  return ${variables.jsx};
-};
-
-export default ${variables.componentName};
-`,
       },
-      { componentName }
+      { componentName: "SvgTemp" }
     );
 
+    const svgMatch = jsxCode.match(/<svg[\s\S]*?<\/svg>/);
+    if (!svgMatch) {
+      console.warn(`Could not extract SVG content from ${svg.base}`);
+      continue;
+    }
+
+    let svgContent = svgMatch[0];
+
+    svgContent = svgContent
+      .replace(/\s+width=["'][^"']*["']/g, "")
+      .replace(/\s+height=["'][^"']*["']/g, "")
+      .replace(/\s+fill=["'][^"']*["']/g, "")
+      .replace(/\s+fill-opacity=["'][^"']*["']/g, "")
+      .replace(/\s+stroke=["'][^"']*["']/g, "")
+      .replace(/\s+stroke-opacity=["'][^"']*["']/g, "");
+
+    svgContent = svgContent
+      .replace(/fill-rule=/g, "fillRule=")
+      .replace(/clip-rule=/g, "clipRule=")
+      .replace(/stroke-width=/g, "strokeWidth=")
+      .replace(/stroke-linecap=/g, "strokeLinecap=")
+      .replace(/stroke-linejoin=/g, "strokeLinejoin=")
+      .replace(/stroke-miterlimit=/g, "strokeMiterlimit=");
+
+    const finalCode = `import * as React from "react";
+
+export interface IconProps extends React.SVGProps<SVGSVGElement> {
+  title?: string;
+  size?: number | string;
+}
+
+const ${componentName} = React.forwardRef<SVGSVGElement, IconProps>(
+  ({ title, size = 24, ...props }, ref) => (
+    ${svgContent
+      .replace(
+        /<svg/,
+        '<svg\n      ref={ref}\n      width={size}\n      height={size}\n      fill="currentColor"\n      aria-hidden={!title}\n      focusable="false"\n      {...props}'
+      )
+      .replace(
+        /<svg([^>]*)>/,
+        (match) => `${match}\n      {title && <title>{title}</title>}`
+      )}
+  )
+);
+
+${componentName}.displayName = "${componentName}";
+
+export default ${componentName};
+`;
+
     const outPath = path.join(OUTPUT_DIR, `${componentName}.tsx`);
-    await writePrettyFile(outPath, tsx, "babel-ts");
+    await writePrettyFile(outPath, finalCode, "babel-ts");
     await fs.writeFile(cacheFile, hash, "utf8");
   }
 }
